@@ -2,100 +2,144 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
   font-family: "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #f8f9fa;
+}
+
+/* ==== МЯГКО ДВИЖУЩИЙСЯ ФОН ==== */
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-  animation: bgShift 12s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 30% 30%, #12223a, #0b1524 70%);
+  color: #f8f9fa;
+  perspective: 1000px;
+  position: relative;
+  animation: bgShift 20s ease-in-out infinite alternate;
 }
 
-/* Мягкое дыхание фона */
 @keyframes bgShift {
-  from {
-    background-position: left top;
+  0% {
+    background: radial-gradient(circle at 25% 30%, #132b45, #0b1524 70%);
   }
-  to {
-    background-position: right bottom;
+  100% {
+    background: radial-gradient(circle at 70% 80%, #203a43, #0f2027 70%);
   }
 }
 
+/* ==== СВЕЧЕНИЕ ПОЗАДИ КОНТЕЙНЕРА ==== */
+body::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
+  filter: blur(140px);
+  animation: drift 22s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes drift {
+  0% { transform: translate(-10%, -15%); }
+  100% { transform: translate(25%, 25%); }
+}
+
+/* ==== КОНТЕЙНЕР ==== */
 .container {
+  position: relative;
   width: 100%;
-  max-width: 420px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 40px 35px;
-  border-radius: 16px;
+  max-width: 440px;
+  padding: 50px 35px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
   box-shadow:
     0 8px 25px rgba(0, 0, 0, 0.4),
-    0 0 10px rgba(255, 255, 255, 0.05) inset;
+    0 0 15px rgba(255, 255, 255, 0.08) inset,
+    0 0 12px rgba(0, 255, 255, 0.05);
   text-align: center;
-  backdrop-filter: blur(10px);
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
   animation: floatCard 6s ease-in-out infinite;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 1;
 }
 
-/* Лёгкое «покачивание» контейнера */
+/* Лёгкое покачивание */
 @keyframes floatCard {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0) rotateY(0deg); }
+  50% { transform: translateY(-10px) rotateY(1deg); }
 }
 
+/* Мягкий блик по стеклу */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -20%;
+  width: 140%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.05) 50%,
+    transparent 60%
+  );
+  transform: skewX(-15deg);
+  animation: shine 12s linear infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(100%) skewX(-15deg); }
+}
+
+/* ==== ЗАГОЛОВОК ==== */
 h1 {
   margin-bottom: 25px;
   font-size: 2rem;
-  letter-spacing: 1.2px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #fefefe;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1.5px;
+  color: #eaf0f6;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
   animation: fadeInDown 0.8s ease forwards;
   opacity: 0;
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* ==== ПОЛЕ С ПАРОЛЕМ ==== */
 .password-display {
-  background-color: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 16px;
   width: 100%;
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 1.2rem;
+  border-radius: 12px;
   text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
   color: #fff;
   margin-bottom: 25px;
-  user-select: all;
-  letter-spacing: 1px;
-  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
+  transition: all 0.6s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
 }
 
-.password-display:hover,
-.password-display:focus {
-  background-color: rgba(255, 255, 255, 0.18);
-  transform: scale(1.02);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+.password-display:focus,
+.password-display:hover {
+  background-color: rgba(255,255,255,0.18);
+  transform: scale(1.03);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.3);
 }
 
+/* ==== КНОПКИ ==== */
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -108,71 +152,87 @@ button {
   flex: 1;
   padding: 12px 0;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   transition:
-    background 0.4s ease,
+    background 0.5s ease,
     transform 0.25s ease,
-    box-shadow 0.3s ease;
-  animation: fadeInUp 0.8s ease forwards;
+    box-shadow 0.4s ease,
+    filter 0.4s ease;
+  animation: fadeInUp 0.7s ease forwards;
   opacity: 0;
 }
 
-/* Кнопки плавно проявляются */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Цвета и эффекты при наведении */
+/* Наведение и нажатие */
 button:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  filter: brightness(1.1);
 }
 
+button:active {
+  transform: scale(0.96);
+  filter: brightness(1.3);
+}
+
+/* Цвета кнопок */
 .easy {
   background-color: #28a745;
-  box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+  box-shadow: 0 0 12px rgba(40,167,69,0.5);
 }
+.easy:hover { box-shadow: 0 0 20px rgba(40,167,69,0.7); }
 
 .medium {
   background-color: #ffc107;
   color: #222;
-  box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+  box-shadow: 0 0 12px rgba(255,193,7,0.5);
 }
+.medium:hover { box-shadow: 0 0 20px rgba(255,193,7,0.8); }
 
 .hard {
   background-color: #dc3545;
-  box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+  box-shadow: 0 0 12px rgba(220,53,69,0.5);
 }
+.hard:hover { box-shadow: 0 0 20px rgba(220,53,69,0.8); }
 
 .generate-btn {
   background-color: #007bff;
   width: 100%;
-  margin-top: 5px;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+  margin-top: 6px;
+  box-shadow: 0 0 14px rgba(0,123,255,0.5);
 }
-
 .generate-btn:hover {
   background-color: #0066d3;
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+  box-shadow: 0 0 22px rgba(0,123,255,0.8);
 }
 
+/* ==== ФУТЕР ==== */
 footer {
   font-size: 0.85rem;
   opacity: 0.7;
-  margin-top: 15px;
-  letter-spacing: 0.3px;
+  margin-top: 20px;
   color: #d0d4da;
+  letter-spacing: 0.3px;
+  animation: fadeIn 2s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* ==== АДАПТАЦИЯ ==== */
+@media (max-width: 480px) {
+  .container { padding: 30px 20px; }
+  h1 { font-size: 1.6rem; }
+  .buttons { flex-direction: column; }
 }
