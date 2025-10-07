@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  animation: bgShift 12s ease-in-out infinite alternate;
+}
+
+/* Мягкое дыхание фона */
+@keyframes bgShift {
+  from {
+    background-position: left top;
+  }
+  to {
+    background-position: right bottom;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    0 0 10px rgba(255, 255, 255, 0.05) inset;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+/* Лёгкое «покачивание» контейнера */
+@keyframes floatCard {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-size: 2rem;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fefefe;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  animation: fadeInDown 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.password-display {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 25px;
+  user-select: all;
+  letter-spacing: 1px;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
+}
+
+.password-display:hover,
+.password-display:focus {
+  background-color: rgba(255, 255, 255, 0.18);
+  transform: scale(1.02);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+button {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition:
+    background 0.4s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+/* Кнопки плавно проявляются */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Цвета и эффекты при наведении */
+button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.easy {
+  background-color: #28a745;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+}
+
+.medium {
+  background-color: #ffc107;
+  color: #222;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+}
+
+.hard {
+  background-color: #dc3545;
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+}
+
+.generate-btn {
+  background-color: #007bff;
+  width: 100%;
+  margin-top: 5px;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+}
+
+.generate-btn:hover {
+  background-color: #0066d3;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+}
+
+footer {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 15px;
+  letter-spacing: 0.3px;
+  color: #d0d4da;
+}
