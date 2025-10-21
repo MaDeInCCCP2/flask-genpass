@@ -1,2 +1,0 @@
-# flask-genpass
-genpass
