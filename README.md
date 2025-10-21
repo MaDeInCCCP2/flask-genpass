@@ -1,2 +1,2 @@
 # flask-genpass
-genpass
+генпас жиес жи
